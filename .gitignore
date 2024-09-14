@@ -1,0 +1,137 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+.vscode/
+.vscode/**
+.vscode/.history
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.docstates
+
+# Database
+*.mdf
+*.ldf
+
+# Visual Studio Code files
+.vscode/
+
+# Rider files
+.idea/
+
+# CMake
+[Cc]MakeCache.txt
+[Cc]MakeFiles/
+CMakeScripts/
+CTestTestfile.cmake
+cmake_install.cmake
+CMakeLists.txt.user
+compile_commands.json
+CMakeLists.txt.user
+CMakeLists.txt.atl
+
+# MacOS Files
+.DS_Store
+
+# NuGet
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/EntityFramework.ReversePOCO.Generator/
+# Uncomment if you have a lot of projects, and using a shared packages directory
+#!packages/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Web workspaces
+.virtualenv/
+venv/
+node_modules/
+.env
+.local/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# ReSharper
+_ReSharper*/
+*.DotSettings.user
+*.sln.DotSettings
+
+# JetBrains Rider
+.idea
+*.sln.iml
+
+# CodeRush
+.cr/
+
+# Others
+*.swp
+*~
+.project
+*.bak
+*.tmp
+*.swp
+*.htm
+*.html
+*.class
+*.jar
+*.war
+*.ear
+
+# Local history for VSCode
+.vscode/.history
+
+# Logs
+*.log
+*.tlog
+*.dmp
+*.tmp
+
+# Coverage Reports
+coverage*.json
+coverage*.xml
+coverage*.info
+.coverage
+*.lcov
+
+# Test Results
+TestResult*
+
+# Workspaces
+*.wsp
+
+# Others
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.sass-cache/
+.DS_Store
+config/
+.env.local
+.env.*
+.idea
+.project
+.settings
+.c9/
+*.launch
+*.bootResources.cache
