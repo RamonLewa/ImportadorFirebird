@@ -94,6 +94,26 @@ namespace ImportadorFirebird
                     {
                         MessageBox.Show($"Erro ao importar a tabela {tableName}: {ex.Message}");
                     }
+
+                }
+                // Views
+                foreach (string tableName in tableNames)
+                {
+                    List<string> viewScripts = await ViewsImport.GenerateViewScripts(sourceConnection);
+                    foreach (string viewScript in viewScripts)
+                    {
+                        try
+                        {
+                            using (FbCommand viewCommand = new FbCommand(viewScript, destinationConnection))
+                            {
+                                await viewCommand.ExecuteNonQueryAsync();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro ao criar a view: {ex.Message}");
+                        }
+                    }
                 }
 
                 MessageBox.Show("Dados importados com sucesso!");
