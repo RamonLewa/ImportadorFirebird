@@ -85,6 +85,7 @@
             this.btnSelecionarBancoOrigem.TabIndex = 7;
             this.btnSelecionarBancoOrigem.Text = "...";
             this.btnSelecionarBancoOrigem.UseVisualStyleBackColor = false;
+            this.btnSelecionarBancoOrigem.Click += new System.EventHandler(this.btnSelecionarBancoOrigem_Click);
             // 
             // txtBancoOrigem
             // 
@@ -122,6 +123,7 @@
             this.btnSelecionarBancoDestino.TabIndex = 5;
             this.btnSelecionarBancoDestino.Text = "...";
             this.btnSelecionarBancoDestino.UseVisualStyleBackColor = false;
+            this.btnSelecionarBancoDestino.Click += new System.EventHandler(this.btnSelecionarBancoDestino_Click);
             // 
             // gpbCriarBanco
             // 
@@ -157,6 +159,7 @@
             this.btnImportar.TabIndex = 5;
             this.btnImportar.Text = "Importar dados";
             this.btnImportar.UseVisualStyleBackColor = false;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
             // 
             // fImportador
             // 
