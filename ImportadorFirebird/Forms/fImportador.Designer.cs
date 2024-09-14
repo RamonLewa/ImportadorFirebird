@@ -144,6 +144,7 @@
             this.btnCriarBanco.TabIndex = 8;
             this.btnCriarBanco.Text = "Criar banco";
             this.btnCriarBanco.UseVisualStyleBackColor = false;
+            this.btnCriarBanco.Click += new System.EventHandler(this.btnCriarBanco_Click);
             // 
             // btnImportar
             // 
