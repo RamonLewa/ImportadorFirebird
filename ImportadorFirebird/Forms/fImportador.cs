@@ -19,10 +19,10 @@ namespace ImportadorFirebird
             InitializeComponent();
         }
 
-        private void btnCriarBanco_Click(object sender, EventArgs e)
+        private async void btnCriarBanco_Click(object sender, EventArgs e)
         {
             CriarBanco criarBanco = new CriarBanco();
-            criarBanco.CreateDatabase();
+            await criarBanco.CreateDatabaseAsync(); 
         }
 
         private void btnSelecionarBancoOrigem_Click(object sender, EventArgs e)

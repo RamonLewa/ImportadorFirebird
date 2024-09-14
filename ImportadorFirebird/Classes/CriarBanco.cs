@@ -6,12 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FirebirdSql.Data.FirebirdClient;
+using System.IO;
+using System.Threading.Tasks;
+using FirebirdSql.Data.FirebirdClient;
+using System.Windows.Forms;
 
 namespace ImportadorFirebird.Classes
 {
     public class CriarBanco
     {
-        public void CreateDatabase()
+        public async Task CreateDatabaseAsync()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Banco de dados (*.FDB)|*.FDB";
@@ -25,20 +29,36 @@ namespace ImportadorFirebird.Classes
 
                 try
                 {
-                    FbConnectionStringBuilder builder = new FbConnectionStringBuilder();
-                    builder.DataSource = "localhost";
-                    builder.Database = caminhoArquivo;
-                    builder.Port = 3051;
-                    builder.UserID = "SYSDBA";
-                    builder.Password = "masterkey";
-                    builder.Charset = "UTF8";
-                    builder.Dialect = 3;
-                    builder.ConnectionLifeTime = 15;
-                    builder.PacketSize = 8192;
-                    builder.ServerType = 0;
-                    builder.MaxPoolSize = 1000;
+                    if (File.Exists(caminhoArquivo))
+                    {
+                        DialogResult dialogResult = MessageBox.Show("O arquivo já existe. Deseja sobrescrevê-lo?", "Sobrescrever", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            File.Delete(caminhoArquivo);
+                        }
+                    }
 
-                    FbConnection.CreateDatabase(builder.ConnectionString);
+                    await Task.Run(() =>
+                    {
+                        FbConnectionStringBuilder builder = new FbConnectionStringBuilder();
+                        builder.DataSource = "localhost";
+                        builder.Database = caminhoArquivo;
+                        builder.Port = 3051;
+                        builder.UserID = "SYSDBA";
+                        builder.Password = "masterkey";
+                        builder.Charset = "UTF8";
+                        builder.Dialect = 3;
+                        builder.ConnectionLifeTime = 15;
+                        builder.PacketSize = 8192;
+                        builder.ServerType = 0;
+                        builder.MaxPoolSize = 1000;
+
+                        FbConnection.CreateDatabase(builder.ConnectionString);
+                    });
 
                     MessageBox.Show("Banco de dados gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
