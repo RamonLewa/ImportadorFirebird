@@ -82,15 +82,7 @@ namespace ImportadorFirebird
                 {
                     try
                     {
-                        // Criação tabelas
-                        // Chamada ao método
-                        var (createTableScript, alterTableScript, dataReader, fbCommand) = await migrate.GenerateCreateTableScript(sourceConnection, tableName);
-
-
-                        // Verifique os scripts gerados usando MessageBox
-                        // MessageBox.Show($"Create Table Script:\n{createTableScript}", "Create Table Script", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        //MessageBox.Show($"Alter Table Script:\n{alterTableScript}", "Alter Table Script", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        var (createTableScript, alterTableScript, dataReader, fbCommand) = await migrate.GenerateCreateTableScript(sourceConnection, tableName)
 
                         if (createTableScript != null)
                         {
