@@ -167,6 +167,16 @@ namespace ImportadorFirebird
                     MessageBox.Show($"Erro ao importar a procedure: {ex.Message}");
                 }
 
+                // Triggers
+                try
+                {
+                    await TriggersImport.MigrateTriggers(sourceConnection, destinationConnection);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao importar a trigger: {ex.Message}");
+                }
+
                 pgbImportando.Visible = false;
                 MessageBox.Show("Dados importados com sucesso!");
             }
