@@ -78,71 +78,82 @@ namespace ImportadorFirebird
                 pgbImportando.Value = 0;
                 pgbImportando.Visible = true;
 
-                foreach (string tableName in tableNames)
-                {
-                    try
-                    {
-                        var (createTableScript, alterTableScript, dataReader, fbCommand) = await migrate.GenerateCreateTableScript(sourceConnection, tableName)
+                //foreach (string tableName in tableNames)
+                //{
+                //    try
+                //    {
+                //        var (createTableScript, alterTableScript, dataReader, fbCommand) = await migrate.GenerateCreateTableScript(sourceConnection, tableName);
 
-                        if (createTableScript != null)
-                        {
-                            using (FbCommand createCommand = new FbCommand(createTableScript, destinationConnection))
-                            {
-                                await createCommand.ExecuteNonQueryAsync();
-                                pgbImportando.Value++;
-                            }
-                        }
+                //        if (createTableScript != null)
+                //        {
+                //            using (FbCommand createCommand = new FbCommand(createTableScript, destinationConnection))
+                //            {
+                //                await createCommand.ExecuteNonQueryAsync();
+                //                pgbImportando.Value++;
+                //            }
+                //        }
 
-                        // PK
-                        if (!string.IsNullOrEmpty(alterTableScript))
-                        {
-                            using (FbCommand alterCommand = new FbCommand(alterTableScript, destinationConnection))
-                            {
-                                await alterCommand.ExecuteNonQueryAsync();
-                                pgbImportando.Value++;
-                            }
-                        }
+                //        // PK
+                //        if (!string.IsNullOrEmpty(alterTableScript))
+                //        {
+                //            using (FbCommand alterCommand = new FbCommand(alterTableScript, destinationConnection))
+                //            {
+                //                await alterCommand.ExecuteNonQueryAsync();
+                //                pgbImportando.Value++;
+                //            }
+                //        }
 
-                        await migrate.MigrateTableData(sourceConnection, destinationConnection, tableName);
-                        pgbImportando.Value++;
+                //        await migrate.MigrateTableData(sourceConnection, destinationConnection, tableName);
+                //        pgbImportando.Value++;
 
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Erro ao importar a tabela {tableName}: {ex.Message}");
-                    }
-                }
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        MessageBox.Show($"Erro ao importar a tabela {tableName}: {ex.Message}");
+                //    }
+                //}
 
                 // Views
-                foreach (string tableName in tableNames)
-                {
-                    List<string> viewScripts = await ViewsImport.GenerateViewScripts(sourceConnection);
-                    foreach (string viewScript in viewScripts)
-                    {
-                        try
-                        {
-                            using (FbCommand viewCommand = new FbCommand(viewScript, destinationConnection))
-                            {
-                                await viewCommand.ExecuteNonQueryAsync();
-                                pgbImportando.Value++;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Erro ao criar a view: {ex.Message}");
-                        }
-                    }
-                }
+                //foreach (string tableName in tableNames)
+                //{
+                //    List<string> viewScripts = await ViewsImport.GenerateViewScripts(sourceConnection);
+                //    foreach (string viewScript in viewScripts)
+                //    {
+                //        try
+                //        {
+                //            using (FbCommand viewCommand = new FbCommand(viewScript, destinationConnection))
+                //            {
+                //                await viewCommand.ExecuteNonQueryAsync();
+                //                pgbImportando.Value++;
+                //            }
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            MessageBox.Show($"Erro ao criar a view: {ex.Message}");
+                //        }
+                //    }
+                //}
 
                 // Generators
+                //try
+                //{
+                //    await GeneratorsImport.MigrateGenerators(sourceConnection, destinationConnection);
+                //    pgbImportando.Value++;
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show($"Erro ao criar o generator: {ex.Message}");
+                //}
+
+                // Exceptions
                 try
                 {
-                    await GeneratorsImport.MigrateGenerators(sourceConnection, destinationConnection);
-                    pgbImportando.Value++;
+                    ExceptionsImport exceptions = new ExceptionsImport();
+                    await exceptions.ExceptionScripts(destinationConnection);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Erro ao criar o generator: {ex.Message}");
+                    MessageBox.Show($"Erro ao importar a exception: {ex.Message}");
                 }
 
                 pgbImportando.Visible = false;
