@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CriarBanco.cs" />
+    <Compile Include="Classes\GeneratorsImport.cs" />
     <Compile Include="Classes\MigrateTables.cs" />
     <Compile Include="Classes\ViewsImport.cs" />
     <Compile Include="Forms\fImportador.cs">

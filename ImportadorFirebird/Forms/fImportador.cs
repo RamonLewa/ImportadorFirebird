@@ -116,6 +116,16 @@ namespace ImportadorFirebird
                     }
                 }
 
+                // Generators
+                try
+                {
+                    await GeneratorsImport.MigrateGenerators(sourceConnection, destinationConnection);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao criar o generator: {ex.Message}");
+                }
+
                 MessageBox.Show("Dados importados com sucesso!");
             }
         }
