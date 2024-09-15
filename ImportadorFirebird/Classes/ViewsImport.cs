@@ -247,10 +247,8 @@ namespace ImportadorFirebird.Classes
 
             foreach (string view in viewScripts)
             {
-                // Vincular o comando à conexão aberta
                 using (FbCommand command = new FbCommand(view, connection))
                 {
-                    // Necessário para executar o comando SQL
                     command.Connection = connection;
                     await command.ExecuteNonQueryAsync();
                 }
