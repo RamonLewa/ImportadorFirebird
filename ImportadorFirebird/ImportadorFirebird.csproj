@@ -60,6 +60,7 @@
     <Compile Include="Classes\ExceptionsImport.cs" />
     <Compile Include="Classes\GeneratorsImport.cs" />
     <Compile Include="Classes\MigrateTables.cs" />
+    <Compile Include="Classes\ProceduresImport.cs" />
     <Compile Include="Classes\ViewsImport.cs" />
     <Compile Include="Forms\fImportador.cs">
       <SubType>Form</SubType>
