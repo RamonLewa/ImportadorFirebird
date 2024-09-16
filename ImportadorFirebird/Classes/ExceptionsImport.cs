@@ -25,7 +25,6 @@ namespace ImportadorFirebird.Classes
         {
             foreach (var parametros in ParametrosExceptions())
             {
-                // Verifica se o script não está vazio
                 if (string.IsNullOrWhiteSpace(parametros))
                     continue;
 
@@ -37,7 +36,6 @@ namespace ImportadorFirebird.Classes
                     }
                     catch (Exception ex)
                     {
-                        // Log ou exibe o erro
                         MessageBox.Show($"Erro ao executar o script de criação das exceptions: {ex.Message}\n", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }

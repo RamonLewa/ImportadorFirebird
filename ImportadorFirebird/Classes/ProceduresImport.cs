@@ -39,7 +39,6 @@ namespace ImportadorFirebird.Classes
             Dictonary.Add("SPCRIAOP", "CODMODULO integer, ORIGEM varchar(10)");
             Dictonary.Add("SPCRIAOPDESMEMBRAMENTO", "CODDESMEMBRAMENTO integer");
 
-            // Procedures comentadas
             Dictonary.Add("SPINSEREDAVD2", "CONTROLE integer, DATACADASTRO timestamp, CNPJ varchar(20), SERIEECF varchar(21), TIPOECF varchar(7), MARCAECF varchar(20), MODELOECF varchar(20), COO integer, NUMERODAV varchar(13), DATADAV date, TITULODAV varchar(30), VALORTOTAL decimal(15,2),  COOVINCULADO integer, CLIENTE varchar(100), NUMEROECF integer, CPFCLIENTE varchar(20), CNPJCLIENTE varchar(20), MD5DAV varchar(100), CODORCAMENTO integer, CODPEDIDOVENDA integer, CODOS integer, CODCONDICIONAL integer");
             Dictonary.Add("SPINSEREDAVD3", "CONTROLE integer, NUMERODAV varchar(13), DATA date, CODITEM integer, CODPRODUTO integer, PRODUTO varchar(100), QTDE decimal(15,2), UN varchar(10), VALORUNITARIO decimal(15,2), VALORDESCONTOITEM numeric(15,2), VALORACRESCIMOITEM numeric(15,2), TOTALLIQUIDO decimal(15,2), SITUACAOTRIBUTARIA varchar(1), ALIQUOTA numeric(15,2), CANCELADO varchar(1), DECIMAISQTDE integer, DECIMAISVALOR integer, CODITEMORCAMENTO integer, CODITEMPEDIDOVENDA integer, CODITEMCONDICIONAL integer, CODITEMOS integer, MD5ITEMDAV varchar(100)");
 
