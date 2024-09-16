@@ -31,7 +31,7 @@ namespace ImportadorFirebird
 
             await criarBanco.CreateDatabaseAsync(pgbImportando);
 
-            pgbImportando.Visible = false;
+            pgbImportando.Value = 0;
         }
 
 
@@ -89,7 +89,8 @@ namespace ImportadorFirebird
                             using (FbCommand createCommand = new FbCommand(createTableScript, destinationConnection))
                             {
                                 await createCommand.ExecuteNonQueryAsync();
-                                pgbImportando.Value++;
+                                UpdateProgressBar();
+
                             }
                         }
 
@@ -99,12 +100,14 @@ namespace ImportadorFirebird
                             using (FbCommand alterCommand = new FbCommand(alterTableScript, destinationConnection))
                             {
                                 await alterCommand.ExecuteNonQueryAsync();
-                                pgbImportando.Value++;
+                                UpdateProgressBar();
+
                             }
                         }
 
                         await migrate.MigrateTableData(sourceConnection, destinationConnection, tableName);
-                        pgbImportando.Value++;
+                        UpdateProgressBar();
+
 
                     }
                     catch (Exception ex)
@@ -124,7 +127,7 @@ namespace ImportadorFirebird
                             using (FbCommand viewCommand = new FbCommand(viewScript, destinationConnection))
                             {
                                 await viewCommand.ExecuteNonQueryAsync();
-                                pgbImportando.Value++;
+                                UpdateProgressBar();
                             }
                         }
                         catch (Exception ex)
@@ -138,7 +141,7 @@ namespace ImportadorFirebird
                 try
                 {
                     await GeneratorsImport.MigrateGenerators(sourceConnection, destinationConnection);
-                    pgbImportando.Value++;
+                    UpdateProgressBar();
                 }
                 catch (Exception ex)
                 {
@@ -150,6 +153,7 @@ namespace ImportadorFirebird
                 {
                     ExceptionsImport exceptions = new ExceptionsImport();
                     await exceptions.ExceptionScripts(destinationConnection);
+                    UpdateProgressBar();
                 }
                 catch (Exception ex)
                 {
@@ -161,6 +165,7 @@ namespace ImportadorFirebird
                 {
                     List<string> procedureScripts = await ProceduresImport.GetStoredProceduresScripts(sourceConnection);
                     await ProceduresImport.ExecuteProcedureScripts(destinationConnection, procedureScripts);
+                    UpdateProgressBar();
                 }
                 catch (Exception ex) 
                 {
@@ -171,14 +176,27 @@ namespace ImportadorFirebird
                 try
                 {
                     await TriggersImport.MigrateTriggers(sourceConnection, destinationConnection);
+                    UpdateProgressBar();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Erro ao importar a trigger: {ex.Message}");
                 }
 
-                pgbImportando.Visible = false;
-                MessageBox.Show("Dados importados com sucesso!");
+                pgbImportando.Value = 0;
+                MessageBox.Show("Dados importados com sucesso!", "Importador", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
+        }
+        private async void UpdateProgressBar()
+        {
+            if (pgbImportando.Value < pgbImportando.Maximum)
+            {
+                pgbImportando.Value = Math.Min(pgbImportando.Value + 1, pgbImportando.Maximum);
+            }
+            else
+            {
+
             }
         }
     }
