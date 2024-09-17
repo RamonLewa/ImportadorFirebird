@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ImportadorFirebird
 {
@@ -216,6 +217,20 @@ namespace ImportadorFirebird
                     MessageBox.Show($"Erro ao importar a trigger: {ex.Message}");
                 }
 
+                // FKs
+                foreach (string tableName in tableNames)
+                {
+                    try
+                    {
+                        await ForeignKeysImport.ExecuteForeignKeyScript(sourceConnectionString, destinationConnectionString, tableName);
+                        UpdateProgressBar();
+
+                    } catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao importar FK: {ex.Message}");
+                    }
+                }
+
                 pgbImportando.Value = 0;
                 MessageBox.Show("Dados importados com sucesso!", "Importador", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -226,7 +241,7 @@ namespace ImportadorFirebird
             if (pgbImportando.Value < pgbImportando.Maximum)
             {
                 pgbImportando.Value = Math.Min(pgbImportando.Value + 1, pgbImportando.Maximum);
-                await Task.Delay(50);
+                await Task.Delay(5);
             }
         }
     }
