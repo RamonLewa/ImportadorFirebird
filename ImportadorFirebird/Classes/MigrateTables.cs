@@ -226,7 +226,6 @@ namespace ImportadorFirebird.Classes
                 }
             }
         }
-
         public async Task AddPrimaryKeys(FbConnection connection)
         {
             string primaryKeyQuery = @"

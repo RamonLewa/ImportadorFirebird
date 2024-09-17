@@ -61,6 +61,11 @@ namespace ImportadorFirebird
 
         private async void btnImportar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtBancoOrigem.Text) || string.IsNullOrWhiteSpace(txtBancoDestino.Text))
+            {
+                MessageBox.Show("Por favor, preencha ambos os campos: Banco de Origem e Banco de Destino.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; 
+            }
             string sourceConnectionString = $"DataSource=localhost;Database={txtBancoOrigem.Text};Port=3050;User=SYSDBA;Password=masterkey;Charset=UTF8;Dialect=3;Connection lifetime=60;Connection Timeout=60;PacketSize=32767;ServerType=0;Unicode=false;Max Pool Size=1000";
             string destinationConnectionString = $"DataSource=localhost;Database={txtBancoDestino.Text};Port=3051;User=SYSDBA;Password=masterkey;Charset=UTF8;Dialect=3;Connection lifetime=60;Connection Timeout=60;PacketSize=32767;ServerType=0;Unicode=false;Max Pool Size=1000";
 
@@ -74,9 +79,10 @@ namespace ImportadorFirebird
                 List<string> tableNames = await migrate.GetTableNames(sourceConnection);
 
                 pgbImportando.Minimum = 0;
-                pgbImportando.Maximum = tableNames.Count * 2 + 1;
+                pgbImportando.Maximum = tableNames.Count * 3 + 10;
                 pgbImportando.Value = 0;
                 pgbImportando.Visible = true;
+                btnImportar.Enabled = false;
 
                 foreach (string tableName in tableNames)
                 {
@@ -88,10 +94,24 @@ namespace ImportadorFirebird
                         {
                             using (FbCommand createCommand = new FbCommand(createTableScript, destinationConnection))
                             {
-                                await createCommand.ExecuteNonQueryAsync();
-                                UpdateProgressBar();
+                                try
+                                {
+                                    await createCommand.ExecuteNonQueryAsync();
+                                    UpdateProgressBar();
+                                }
+                                catch (FbException fbEx)
+                                {
+                                    if (fbEx.ErrorCode == 335544351) 
+                                    {
+                                        MessageBox.Show($"A tabela {tableName} já existe no banco de destino.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
+                                    else
+                                    {
+                                        throw;
+                                    }
+                                }
 
-                            }
+                                }
                         }
 
                         // PK
@@ -99,9 +119,22 @@ namespace ImportadorFirebird
                         {
                             using (FbCommand alterCommand = new FbCommand(alterTableScript, destinationConnection))
                             {
-                                await alterCommand.ExecuteNonQueryAsync();
-                                UpdateProgressBar();
-
+                                try
+                                {
+                                    await alterCommand.ExecuteNonQueryAsync();
+                                    UpdateProgressBar();
+                                }
+                                catch (FbException fbEx)
+                                {
+                                    if (fbEx.ErrorCode == 335544351)
+                                    {
+                                        MessageBox.Show($"A tabela {tableName} já existe no banco de destino.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
+                                    else
+                                    {
+                                        throw;
+                                    }
+                                }
                             }
                         }
 
@@ -186,17 +219,14 @@ namespace ImportadorFirebird
                 pgbImportando.Value = 0;
                 MessageBox.Show("Dados importados com sucesso!", "Importador", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            
+            btnImportar.Enabled = true;
         }
         private async void UpdateProgressBar()
         {
             if (pgbImportando.Value < pgbImportando.Maximum)
             {
                 pgbImportando.Value = Math.Min(pgbImportando.Value + 1, pgbImportando.Maximum);
-            }
-            else
-            {
-
+                await Task.Delay(50);
             }
         }
     }
