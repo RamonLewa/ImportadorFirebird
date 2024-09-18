@@ -1,6 +1,5 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
-using System.Data.Common;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -9,7 +8,7 @@ namespace ImportadorFirebird.Classes
 {
     public class CriarBanco
     {
-        public async Task CreateDatabaseAsync(ProgressBar progressBar)
+        public async Task CreateDatabaseAsync(IProgress<int> progress)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
@@ -50,9 +49,10 @@ namespace ImportadorFirebird.Classes
                         FbConnection.CreateDatabase(builder.ConnectionString);
                     });
 
-                    if (progressBar != null)
+                    for (int i = 0; i <= 100; i += 10)
                     {
-                        progressBar.Invoke(new Action(() => progressBar.Value = 100));
+                        await Task.Delay(300);
+                        progress?.Report(i);
                     }
 
                     MessageBox.Show("Banco de dados gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
