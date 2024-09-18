@@ -23,6 +23,7 @@ namespace ImportadorFirebird
 
         private async void btnCriarBanco_Click(object sender, EventArgs e)
         {
+            btnCriarBanco.Enabled = false;
             CriarBanco criarBanco = new CriarBanco();
 
             pgbImportando.Minimum = 0;
@@ -38,7 +39,7 @@ namespace ImportadorFirebird
             await criarBanco.CreateDatabaseAsync(progress);
 
             pgbImportando.Value = 0;
-            MessageBox.Show("Banco criado com sucesso!", "Concluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            btnCriarBanco.Enabled = true;
         }
 
 
