@@ -77,6 +77,7 @@
             // btnSelecionarBancoOrigem
             // 
             this.btnSelecionarBancoOrigem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(51)))), ((int)(((byte)(255)))));
+            this.btnSelecionarBancoOrigem.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSelecionarBancoOrigem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSelecionarBancoOrigem.ForeColor = System.Drawing.SystemColors.Control;
             this.btnSelecionarBancoOrigem.Location = new System.Drawing.Point(252, 17);
@@ -115,6 +116,7 @@
             // btnSelecionarBancoDestino
             // 
             this.btnSelecionarBancoDestino.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(51)))), ((int)(((byte)(255)))));
+            this.btnSelecionarBancoDestino.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSelecionarBancoDestino.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSelecionarBancoDestino.ForeColor = System.Drawing.SystemColors.Control;
             this.btnSelecionarBancoDestino.Location = new System.Drawing.Point(252, 17);
@@ -138,6 +140,7 @@
             // btnCriarBanco
             // 
             this.btnCriarBanco.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(51)))), ((int)(((byte)(255)))));
+            this.btnCriarBanco.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCriarBanco.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCriarBanco.ForeColor = System.Drawing.SystemColors.Control;
             this.btnCriarBanco.Location = new System.Drawing.Point(6, 19);
@@ -151,6 +154,7 @@
             // btnImportar
             // 
             this.btnImportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(51)))), ((int)(((byte)(255)))));
+            this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImportar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnImportar.ForeColor = System.Drawing.Color.White;
             this.btnImportar.Location = new System.Drawing.Point(242, 175);
