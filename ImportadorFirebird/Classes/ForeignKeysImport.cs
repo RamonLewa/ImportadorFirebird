@@ -17,11 +17,11 @@ namespace ImportadorFirebird.Classes
             string query = $@"
                     SELECT
                         rc.RDB$CONSTRAINT_NAME AS ConstraintName,
-                        rc.RDB$RELATION_NAME AS TableName,       -- Nome da tabela de origem (onde a FK está aplicada)
+                        rc.RDB$RELATION_NAME AS TableName,
                         sg.RDB$FIELD_NAME AS FieldName,
                         refc.RDB$UPDATE_RULE AS UpdateRule,
                         refc.RDB$DELETE_RULE AS DeleteRule,
-                        relc.RDB$RELATION_NAME AS RefTableName,  -- Nome da tabela de referência (onde a FK aponta)
+                        relc.RDB$RELATION_NAME AS RefTableName,
                         refsg.RDB$FIELD_NAME AS RefFieldName
                     FROM
                         RDB$RELATION_CONSTRAINTS rc

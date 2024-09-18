@@ -144,10 +144,7 @@ namespace ImportadorFirebird
 
 
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Erro ao importar a tabela {tableName}: {ex.Message}");
-                    }
+                    catch {}
                 }
 
                 // Views
