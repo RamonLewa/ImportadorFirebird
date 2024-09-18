@@ -92,6 +92,7 @@ namespace ImportadorFirebird
                 pgbImportando.Value = 0;
                 pgbImportando.Visible = true;
                 btnImportar.Enabled = false;
+                btnCriarBanco.Enabled = false;
 
                 foreach (string tableName in tableNames)
                 {
@@ -240,6 +241,7 @@ namespace ImportadorFirebird
                 MessageBox.Show("Dados importados com sucesso!", "Importador", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             btnImportar.Enabled = true;
+            btnCriarBanco.Enabled = true;
         }
         private async void UpdateProgressBar()
         {
